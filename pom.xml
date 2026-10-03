@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.fludakit</groupId>
+        <artifactId>fludakit-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>fluda-mail-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>FluDa :: Mail</name>
+    <description>Mail sending support for Jakarta EE / CDI applications.</description>
+    <url>https://github.com/fludakit/mail</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Hantsy Bai</name>
+            <email>hantsy@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/fludakit/mail.git</connection>
+        <developerConnection>scm:git:ssh://github.com/fludakit/mail.git</developerConnection>
+        <url>https://github.com/fludakit/mail</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>core</module>
+        <module>config</module>
+        <module>cdi</module>
+        <module>sendgrid</module>
+    </modules>
+
+    <properties>
+        <testcontainers-mailpit.version>1.3.1</testcontainers-mailpit.version>
+        <angus-mail.version>2.0.5</angus-mail.version>
+        <freemarker.version>2.3.32</freemarker.version>
+        <sendgrid.version>4.10.2</sendgrid.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Mail modules -->
+            <dependency>
+                <groupId>io.github.fludakit</groupId>
+                <artifactId>fluda-mail-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.fludakit</groupId>
+                <artifactId>fluda-mail-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.fludakit</groupId>
+                <artifactId>fluda-mail-cdi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.fludakit</groupId>
+                <artifactId>fluda-mail-sendgrid</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Mail-specific test dependencies -->
+            <dependency>
+                <groupId>ch.martinelli.oss</groupId>
+                <artifactId>testcontainers-mailpit</artifactId>
+                <version>${testcontainers-mailpit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-mail</artifactId>
+                <version>${angus-mail.version}</version>
+            </dependency>
+
+            <!-- Mail-specific compile dependencies -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sendgrid</groupId>
+                <artifactId>sendgrid-java</artifactId>
+                <version>${sendgrid.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Module-specific plugin configurations can be added here -->
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <!-- Module-specific profiles can be added here -->
+    </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/fludakit/mail</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <name>GitHub Packages - Fludakit Org</name>
+            <id>github-fludakit</id>
+            <url>https://maven.pkg.github.com/fludakit/*</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

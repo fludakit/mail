@@ -1,0 +1,1 @@
+<p>Hello ${name},</p><p>Welcome to our platform! Your account ${accountId} is ready.</p>
