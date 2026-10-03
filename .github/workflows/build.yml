@@ -32,7 +32,7 @@ jobs:
         run: mvn -B -ntp install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SENDGRID_API_KEY: $SENDGRID_API_KEY
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
 
   publish:
     name: Publish to GitHub Packages
