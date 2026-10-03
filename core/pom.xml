@@ -83,6 +83,7 @@
                             <goal>add-module-info</goal>
                         </goals>
                         <configuration>
+                            <jvmVersion>21</jvmVersion>
                             <module>
                                 <moduleInfo>
                                     <name>fluda.mail.core</name>
