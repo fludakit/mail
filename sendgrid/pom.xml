@@ -19,8 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.github.fludakit</groupId>
