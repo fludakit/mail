@@ -51,7 +51,7 @@
         <angus-mail.version>2.0.5</angus-mail.version>
         <freemarker.version>2.3.35</freemarker.version>
         <sendgrid.version>4.10.3</sendgrid.version>
-        <jackson2.version>2.17.2</jackson2.version>
+        <jackson2.version>2.18.2</jackson2.version>
     </properties>
 
     <dependencyManagement>
