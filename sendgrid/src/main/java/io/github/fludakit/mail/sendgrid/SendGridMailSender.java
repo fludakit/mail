@@ -20,10 +20,10 @@ import java.util.Base64;
 
 /**
  * SendGrid implementation of MailSender.
- * 
+ *
  * <p>This is a pure Java SE implementation with no CDI dependencies.
  * To use it in a CDI environment, you can:</p>
- * 
+ *
  * <p>Option 1: Create a producer bean:</p>
  * <pre>
  * &#64;ApplicationScoped
@@ -35,7 +35,7 @@ import java.util.Base64;
  *     }
  * }
  * </pre>
- * 
+ *
  * <p>Option 2: Use @Priority to activate (if multiple MailSender beans exist):</p>
  * <pre>
  * &#64;ApplicationScoped
@@ -50,7 +50,7 @@ import java.util.Base64;
  * </pre>
  */
 public class SendGridMailSender implements MailSender {
-    
+
     private final String apiKey;
     private final SendGrid sg;
     private final boolean sandbox;
@@ -64,28 +64,15 @@ public class SendGridMailSender implements MailSender {
         this.sandbox = sandbox;
         this.sg = new SendGrid(apiKey);
     }
-    
+
     @Override
     public void send(MailMessage emailMessage) throws MailException {
 
-        Email from = new Email(emailMessage.getFrom());
-        String subject = emailMessage.getSubject();
-        Content content = new Content("text/html", emailMessage.getHtmlBody());
-
-        Email firstTo = new Email(emailMessage.getTo().get(0));
-        Mail mail = new Mail(from, subject, firstTo, content);
-
-        if (sandbox) {
-            MailSettings mailSettings = new MailSettings();
-            Setting sandboxMode = new Setting();
-            sandboxMode.setEnable(true);
-            mailSettings.setSandboxMode(sandboxMode);
-            mail.setMailSettings(mailSettings);
-        }
+        Mail mail = buildMail(emailMessage);
 
         if (emailMessage.getTo().size() > 1) {
             for (int i = 1; i < emailMessage.getTo().size(); i++) {
-                mail.getPersonalization().get(0).addTo(new Email(emailMessage.getTo().get(i)));
+                mail.getPersonalization().getFirst().addTo(new Email(emailMessage.getTo().get(i)));
             }
         }
 
@@ -119,5 +106,23 @@ public class SendGridMailSender implements MailSender {
         } catch (Exception ex) {
             throw new MailException("Fatal SendGrid execution runtime error", ex);
         }
+    }
+
+    private Mail buildMail(MailMessage emailMessage) {
+        Email from = new Email(emailMessage.getFrom());
+        String subject = emailMessage.getSubject();
+        Content content = new Content("text/html", emailMessage.getHtmlBody());
+
+        Email firstTo = new Email(emailMessage.getTo().get(0));
+        Mail mail = new Mail(from, subject, firstTo, content);
+
+        if (sandbox) {
+            MailSettings mailSettings = new MailSettings();
+            Setting sandboxMode = new Setting();
+            sandboxMode.setEnable(true);
+            mailSettings.setSandboxMode(sandboxMode);
+            mail.setMailSettings(mailSettings);
+        }
+        return mail;
     }
 }

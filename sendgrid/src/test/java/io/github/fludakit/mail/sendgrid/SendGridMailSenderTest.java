@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * export SENDGRID_API_KEY=your-api-key
  * </pre>
  */
-//@Disabled
-@EnabledIfEnvironmentVariable(named = "SENDGRID_API_KEY", matches = ".+")
+@Disabled
+//@EnabledIfEnvironmentVariable(named = "SENDGRID_API_KEY", matches = ".+")
 class SendGridMailSenderTest {
 
     @Test
