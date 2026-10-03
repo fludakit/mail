@@ -24,9 +24,12 @@ class MailBuilderTest {
     WeldInitiator setup = WeldInitiator.of(
             WeldInitiator.createWeld()
                     .disableDiscovery()
+                    // 1. Register the class so Weld discovers it
+                    .addBeanClass(MailSenderDecorator.class)
                     .addBeanClass(MailBuilderProducer.class)
                     .addBeanClass(TestMailSenderProducer.class)
                     .addBeanClass(MailTrackingRegistry.class)
+                    // 2. Enable it as a decorator
                     .decorators(MailSenderDecorator.class)
     );
 

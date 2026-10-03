@@ -5,6 +5,7 @@ import io.github.fludakit.mail.MailSender;
 import jakarta.annotation.Priority;
 import jakarta.decorator.Decorator;
 import jakarta.decorator.Delegate;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
  */
 @Decorator
 @Priority(100)
+@ApplicationScoped
 public class MailSenderDecorator implements MailSender {
 
     @Delegate
