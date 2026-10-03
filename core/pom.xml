@@ -83,7 +83,14 @@
                             <goal>add-module-info</goal>
                         </goals>
                         <configuration>
+                            <!-- 1. Tells ModiTect to target Java 21 for your module-info -->
                             <jvmVersion>21</jvmVersion>
+
+                            <!-- 2. Forces jdeps to inspect the Java 21 classes inside FreeMarker -->
+                            <jdepsExtraArgs>
+                                <arg>--multi-release=16</arg>
+                            </jdepsExtraArgs>
+
                             <module>
                                 <moduleInfo>
                                     <name>fluda.mail.core</name>
