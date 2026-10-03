@@ -9,7 +9,6 @@ Mail sending support for Jakarta EE / CDI applications with multiple provider im
 - `fluda-mail-core`: Core mail API, MailConfig, MailBuilder, TemplateProcessor, and Jakarta Mail implementation (pure Java SE, no CDI).
 - `fluda-mail-config`: MicroProfile Config integration for mail configuration (SMTP/POP3 settings).
 - `fluda-mail-cdi`: CDI extension that produces Session, MailSender, MailBuilder, and TemplateProcessor beans.
-- `fluda-mail-sendgrid`: SendGrid implementation of MailSender (pure Java SE, no CDI).
 
 ## Architecture
 
@@ -18,7 +17,6 @@ The mail project follows a clear separation of concerns:
 - **Core** is a pure Java SE library with Jakarta Mail support. It includes `MailConfig`, `MailBuilder`, `TemplateProcessor` (with FreeMarker inner class and StringTemplateProcessor), and can be used standalone without CDI.
 - **Config** provides MicroProfile Config integration to produce a `MailConfig` bean from configuration properties via `MailProperties`.
 - **CDI** automatically creates Jakarta Mail `Session`, `MailSender`, `MailBuilder`, and `TemplateProcessor` beans. If a `MailConfig` bean is available, it creates a Session from it. Otherwise, it checks for an existing Session bean. The TemplateProcessor automatically uses FreeMarker if available, otherwise falls back to StringTemplateProcessor.
-- **SendGrid** is a pure Java SE implementation that depends only on core. Users can create alternative `MailSender` beans and activate them via `beans.xml` or `@Priority`.
 
 ## Usage
 
@@ -129,41 +127,6 @@ public void sendWelcomeEmail(String to, String userName) {
     message.setHtmlBody("<p>Hello " + userName + ", welcome aboard!</p>");
 
     mailSender.send(message);
-}
-```
-
-### Using SendGrid
-
-If you prefer SendGrid over SMTP:
-
-```xml
-<dependency>
-    <groupId>io.github.fludakit</groupId>
-    <artifactId>fluda-mail-core</artifactId>
-    <version>${fluda.version}</version>
-</dependency>
-<dependency>
-    <groupId>io.github.fludakit</groupId>
-    <artifactId>fluda-mail-sendgrid</artifactId>
-    <version>${fluda.version}</version>
-</dependency>
-```
-
-Create a producer bean:
-
-```java
-import io.github.fludakit.mail.MailSender;
-import io.github.fludakit.mail.sendgrid.SendGridMailSender;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-
-@ApplicationScoped
-public class SendGridProducer {
-    @Produces
-    @ApplicationScoped
-    public MailSender mailSender() {
-        return new SendGridMailSender("your-sendgrid-api-key");
-    }
 }
 ```
 
