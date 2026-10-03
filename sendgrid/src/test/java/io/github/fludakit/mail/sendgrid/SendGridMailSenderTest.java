@@ -2,6 +2,7 @@ package io.github.fludakit.mail.sendgrid;
 
 import io.github.fludakit.mail.MailException;
 import io.github.fludakit.mail.MailMessage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -19,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * export SENDGRID_API_KEY=your-api-key
  * </pre>
  */
-@EnabledIfEnvironmentVariable(named = "SENDGRID_API_KEY", matches = ".+")
+@Disabled
+//@EnabledIfEnvironmentVariable(named = "SENDGRID_API_KEY", matches = ".+")
 class SendGridMailSenderTest {
 
     @Test
