@@ -104,6 +104,14 @@
                                     </opens>
                                 </moduleInfo>
                             </module>
+                            <modules>
+                                <module>
+                                    <artifact>
+                                        <groupId>jakarta.mail</groupId>
+                                        <artifactId>jakarta.mail-api</artifactId><!-- Match your project version -->
+                                    </artifact>
+                                </module>
+                            </modules>
                         </configuration>
                     </execution>
                 </executions>
