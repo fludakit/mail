@@ -57,6 +57,9 @@
                             <goal>add-module-info</goal>
                         </goals>
                         <configuration>
+                            <jdepsExtraArgs>
+                                <arg>--multi-release=16</arg>
+                            </jdepsExtraArgs>
                             <module>
                                 <moduleInfo>
                                     <name>fluda.mail.cdi</name>
