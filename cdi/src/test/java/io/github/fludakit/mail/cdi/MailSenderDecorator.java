@@ -6,6 +6,7 @@ import jakarta.annotation.Priority;
 import jakarta.decorator.Decorator;
 import jakarta.decorator.Delegate;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 
 /**
@@ -14,7 +15,7 @@ import jakarta.inject.Inject;
  */
 @Decorator
 @Priority(100)
-@ApplicationScoped
+@Dependent
 public class MailSenderDecorator implements MailSender {
 
     @Delegate
