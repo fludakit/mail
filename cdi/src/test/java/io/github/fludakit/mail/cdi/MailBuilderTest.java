@@ -3,7 +3,7 @@ package io.github.fludakit.mail.cdi;
 import io.github.fludakit.mail.MailBuilder;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
-import org.jboss.weld.environment.se.Weld;
+
 import org.jboss.weld.junit5.WeldInitiator;
 import org.jboss.weld.junit5.WeldJunit5Extension;
 import org.jboss.weld.junit5.WeldSetup;
@@ -27,7 +27,7 @@ class MailBuilderTest {
                     // 1. Register the class so Weld discovers it
                     .addBeanClass(MailSenderDecorator.class)
                     .addBeanClass(MailBuilderProducer.class)
-                    .addBeanClass(TestMailSenderProducer.class)
+                    .addBeanClass(TestMailSender.class)
                     .addBeanClass(MailTrackingRegistry.class)
                     // 2. Enable it as a decorator
                     .decorators(MailSenderDecorator.class)
