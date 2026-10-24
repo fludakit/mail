@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * 
  * <p>Usage example:</p>
  * <pre>
- * TemplateProcessor processor = new StringTemplateProcessor();
+ * TemplateProcessor processor = new SimpleTemplateProcessor();
  * Map&lt;String, Object&gt; context = Map.of("userName", "John");
  * String body = processor.render("welcome.body", context, Locale.ENGLISH);
  * </pre>
