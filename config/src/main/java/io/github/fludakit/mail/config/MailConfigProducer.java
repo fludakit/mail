@@ -28,7 +28,6 @@ public class MailConfigProducer {
         config.setUsername(properties.username());
         config.setPassword(properties.password());
         config.setAuthEnabled(properties.authEnabled());
-        config.setProtocol(properties.protocol());
         config.setStarttls(properties.starttls());
         config.setFrom(properties.from());
         

@@ -15,7 +15,6 @@ import jakarta.enterprise.context.Dependent;
  *   <li>fluda.mail.username - Mail server username</li>
  *   <li>fluda.mail.password - Mail server password</li>
  *   <li>fluda.mail.auth-enabled - Enable authentication (default: false)</li>
- *   <li>fluda.mail.protocol - Protocol to use: smtp or pop3 (default: smtp)</li>
  *   <li>fluda.mail.starttls - Enable STARTTLS for SMTP (default: false)</li>
  *   <li>fluda.mail.from - Default from address for SMTP</li>
  * </ul>
@@ -38,9 +37,6 @@ public class MailProperties {
 
     @ConfigProperty(name = "auth-enabled", defaultValue = "false")
     private boolean authEnabled;
-
-    @ConfigProperty(name = "protocol", defaultValue = "smtp")
-    private String protocol;
 
     @ConfigProperty(name = "starttls", defaultValue = "false")
     private boolean starttls;
@@ -66,10 +62,6 @@ public class MailProperties {
 
     public boolean authEnabled() {
         return authEnabled;
-    }
-
-    public String protocol() {
-        return protocol;
     }
 
     public boolean starttls() {

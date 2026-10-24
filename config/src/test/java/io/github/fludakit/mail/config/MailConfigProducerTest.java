@@ -40,7 +40,6 @@ class MailConfigProducerTest {
         // Verify that the config values are read from microprofile-config.properties
         assertEquals("smtp.test.com", mailConfig.getHost());
         assertEquals(587, mailConfig.getPort());
-        assertEquals("smtp", mailConfig.getProtocol());
         assertTrue(mailConfig.isAuthEnabled());
         assertTrue(mailConfig.isStarttls());
         assertEquals("testuser", mailConfig.getUsername());
