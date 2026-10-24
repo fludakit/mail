@@ -2,6 +2,7 @@ package io.github.fludakit.mail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,8 +24,9 @@ public class MailMessage {
         this.from = from;
     }
 
+    /** Unmodifiable view of the recipient addresses; use {@link #addTo(String...)} to add. */
     public List<String> getTo() {
-        return to;
+        return Collections.unmodifiableList(to);
     }
 
     public void addTo(String... addresses) {
@@ -47,7 +49,12 @@ public class MailMessage {
         this.htmlBody = htmlBody;
     }
 
+    /** Unmodifiable view of the attachments; use {@link #addAttachment(MailAttachment)} to add. */
     public List<MailAttachment> getAttachments() {
-        return attachments;
+        return Collections.unmodifiableList(attachments);
+    }
+
+    public void addAttachment(MailAttachment attachment) {
+        this.attachments.add(attachment);
     }
 }
