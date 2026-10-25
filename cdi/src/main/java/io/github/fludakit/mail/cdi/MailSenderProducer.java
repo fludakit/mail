@@ -3,12 +3,11 @@ package io.github.fludakit.mail.cdi;
 import io.github.fludakit.mail.JakartaMailSender;
 import io.github.fludakit.mail.MailConfig;
 import io.github.fludakit.mail.MailSender;
+import io.github.fludakit.mail.MailSessionFactory;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import jakarta.mail.Authenticator;
-import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 
 /**
@@ -40,7 +39,7 @@ public class MailSenderProducer {
         // If MailConfig is available, create Session from it
         if (!mailConfigInstance.isUnsatisfied()) {
             MailConfig config = mailConfigInstance.get();
-            return createSessionFromConfig(config);
+            return MailSessionFactory.from(config);
         }
 
         // Otherwise, check if a Session already exists
@@ -52,23 +51,5 @@ public class MailSenderProducer {
                 "No Jakarta Mail Session available: provide a MailConfig bean (e.g. add the "
                         + "fluda-mail-config module with fluda.mail.* properties) or produce a "
                         + "jakarta.mail.Session bean");
-    }
-
-    private Session createSessionFromConfig(MailConfig config) {
-        java.util.Properties props = config.toJakartaMailProperties();
-
-        if (config.isAuthEnabled()) {
-            return Session.getInstance(props, new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(
-                            config.getUsername(),
-                            config.getPassword()
-                    );
-                }
-            });
-        } else {
-            return Session.getInstance(props);
-        }
     }
 }
