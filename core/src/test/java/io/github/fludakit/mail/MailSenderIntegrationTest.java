@@ -85,7 +85,6 @@ class MailSenderIntegrationTest {
         MailConfig config = new MailConfig();
         config.setHost(mailpit.getSmtpHost());
         config.setPort(mailpit.getSmtpPort());
-        config.setProtocol("smtp");
         config.setAuthEnabled(false);
         config.setStarttls(false);
         Session session = Session.getInstance(config.toJakartaMailProperties());
