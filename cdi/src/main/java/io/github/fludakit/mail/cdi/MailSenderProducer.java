@@ -14,8 +14,11 @@ import jakarta.mail.Session;
 /**
  * CDI producer for MailSender beans.
  *
- * <p>This producer creates a MailSender bean from the available Session bean.
- * The Session is produced by {@link MailSessionProducer}.</p>
+ * <p>The Jakarta Mail {@link Session} is resolved in order of preference: a {@link MailConfig}
+ * bean (e.g. produced by the optional {@code config} module) is converted into a session here;
+ * otherwise an existing {@link Session} bean is used. When neither is present, production fails
+ * fast with {@link IllegalStateException} rather than silently falling back to an
+ * unauthenticated localhost:25 session that would only fail at first send.</p>
  */
 @ApplicationScoped
 public class MailSenderProducer {
@@ -33,7 +36,7 @@ public class MailSenderProducer {
         return new JakartaMailSender(session);
     }
 
-    public Session resolveSession() {
+    private Session resolveSession() {
         // If MailConfig is available, create Session from it
         if (!mailConfigInstance.isUnsatisfied()) {
             MailConfig config = mailConfigInstance.get();
@@ -45,8 +48,10 @@ public class MailSenderProducer {
             return existingSessionInstance.get();
         }
 
-        // Fallback: create a default session (localhost:25)
-        return Session.getInstance(new java.util.Properties());
+        throw new IllegalStateException(
+                "No Jakarta Mail Session available: provide a MailConfig bean (e.g. add the "
+                        + "fluda-mail-config module with fluda.mail.* properties) or produce a "
+                        + "jakarta.mail.Session bean");
     }
 
     private Session createSessionFromConfig(MailConfig config) {
