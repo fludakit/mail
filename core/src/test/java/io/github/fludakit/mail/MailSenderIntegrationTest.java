@@ -2,6 +2,9 @@ package io.github.fludakit.mail;
 
 import io.restassured.RestAssured;
 import jakarta.mail.Session;
+
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import ch.martinelli.oss.testcontainers.mailpit.MailpitContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,6 +82,41 @@ class MailSenderIntegrationTest {
         .then()
             .statusCode(200)
             .body("total", equalTo(2));
+    }
+
+    @Test
+    void sendMailWithAttachmentAndVerifyViaApi() {
+        MailSender sender = createMailSender();
+
+        MailMessage message = new MailMessage();
+        message.setFrom("sender@example.com");
+        message.addTo("receiver@example.com");
+        message.setSubject("With Attachment");
+        message.setHtmlBody("<p>body</p>");
+        message.addAttachment(new MailAttachment("report.pdf", "application/pdf",
+                () -> new ByteArrayInputStream("PDF-BYTES".getBytes(StandardCharsets.UTF_8))));
+
+        sender.send(message);
+
+        // the summary carries the attachment count; the names are on the full message
+        String messageId =
+            given()
+            .when()
+                .get("/api/v1/messages")
+            .then()
+                .statusCode(200)
+                .body("total", equalTo(1))
+                .body("messages[0].Attachments", equalTo(1))
+                .extract()
+                    .path("messages[0].ID");
+
+        given()
+        .when()
+            .get("/api/v1/message/" + messageId)
+        .then()
+            .statusCode(200)
+            .body("Attachments[0].FileName", equalTo("report.pdf"))
+            .body("Attachments[0].ContentType", equalTo("application/pdf"));
     }
 
     private MailSender createMailSender() {
