@@ -127,7 +127,7 @@ public class MailBuilder {
      * @return this builder
      */
     public MailBuilder attachment(String filename, String contentType, Supplier<InputStream> streamSupplier) {
-        this.message.getAttachments().add(new MailAttachment(filename, contentType, streamSupplier));
+        this.message.addAttachment(new MailAttachment(filename, contentType, streamSupplier));
         return this;
     }
 
