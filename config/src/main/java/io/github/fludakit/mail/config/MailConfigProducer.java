@@ -9,7 +9,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperties;
 
 /**
- * Produces the {@code @ApplicationScoped} {@link MailConfig} bean from the {@code mail.*}
+ * Produces the {@code @ApplicationScoped} {@link MailConfig} bean from the {@code fluda.mail.*}
  * MicroProfile Config properties. This is the optional integration point consumed by the {@code cdi}
  * module.
  */
