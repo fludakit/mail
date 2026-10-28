@@ -58,11 +58,11 @@ class MailSenderProducerTest {
     }
 
     @ExtendWith(WeldJunit5Extension.class)
-    static class ProducesFromExistingSession {
+    static class PrefersJakartaMailQualifiedSession {
 
         @WeldSetup
         WeldInitiator setup = WeldInitiator
-                .from(MailSenderProducer.class, SessionProducerBean.class)
+                .from(MailSenderProducer.class, QualifiedSessionProducerBean.class)
                 .build();
 
         @Test
@@ -71,11 +71,17 @@ class MailSenderProducerTest {
             assertNotNull(sender);
         }
 
-        public static class SessionProducerBean {
+        public static class QualifiedSessionProducerBean {
 
             @Produces
-            public Session session() {
+            @JakartaMail
+            public Session jakartaMailSession() {
                 return Session.getInstance(new Properties());
+            }
+
+            @Produces
+            public Session unqualifiedSession() {
+                throw new IllegalStateException("unqualified session should not be used");
             }
         }
     }
