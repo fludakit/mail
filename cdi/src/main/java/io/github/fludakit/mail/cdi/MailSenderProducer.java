@@ -4,6 +4,7 @@ import io.github.fludakit.mail.JakartaMailSender;
 import io.github.fludakit.mail.MailConfig;
 import io.github.fludakit.mail.MailSender;
 import io.github.fludakit.mail.MailSessionFactory;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
@@ -26,6 +27,10 @@ public class MailSenderProducer {
     Instance<MailConfig> mailConfigInstance;
 
     @Inject
+    @JakartaMail
+    Instance<Session> qualifiedSessionInstance;
+
+    @Inject
     Instance<Session> existingSessionInstance;
 
     @Produces
@@ -40,6 +45,11 @@ public class MailSenderProducer {
         if (!mailConfigInstance.isUnsatisfied()) {
             MailConfig config = mailConfigInstance.get();
             return MailSessionFactory.from(config);
+        }
+
+        // Session with @JakartaMail
+        if(!qualifiedSessionInstance.isUnsatisfied()) {
+            return qualifiedSessionInstance.get();
         }
 
         // Otherwise, check if a Session already exists
