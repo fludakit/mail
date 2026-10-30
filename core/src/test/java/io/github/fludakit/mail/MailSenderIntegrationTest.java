@@ -1,6 +1,8 @@
 package io.github.fludakit.mail;
 
 import io.restassured.RestAssured;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 
 import java.io.ByteArrayInputStream;
