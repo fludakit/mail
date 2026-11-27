@@ -42,7 +42,7 @@ new MailBuilder(sender)
 
 In a CDI environment, add `fluda-mail-cdi` (and optionally `fluda-mail-config` for `fluda.mail.*` property-based configuration) and inject `MailBuilder` or `MailSender` directly.
 
-For CDI and Jakarta EE setup, configuration properties, templates, and custom providers such as SendGrid, see the [Mail documentation](https://fludakit.github.io/documentation/mail/getting-started/).
+For CDI and Jakarta EE setup, configuration properties, templates, and custom providers such as SendGrid, see the [Mail documentation](https://fludakit.github.io/mail/getting-started/).
 
 ## Building
 
@@ -52,7 +52,7 @@ For CDI and Jakarta EE setup, configuration properties, templates, and custom pr
 
 ## Documentation
 
-See the [reference documentation site](https://fludakit.github.io/documentation/mail/getting-started/) for getting started, templates, custom `MailSender` implementations, and full API reference.
+See the [reference documentation site](https://fludakit.github.io/mail/getting-started/) for getting started, templates, custom `MailSender` implementations, and full API reference.
 
 ## Contributing
 
