@@ -23,3 +23,8 @@ The project is organized into three core modules:
 
 - Start with [getting started](getting-started.md) to add dependencies and send your first email.
 - Explore the [Mail Sender](mail-sender.md) page for custom `MailSender` implementations and CDI integration patterns, and the [Template Resolver](template-resolver.md) page for template rendering.
+
+
+---
+
+[FluDa Toolkit — browse all modules](https://fludakit.github.io/){ .md-button .md-button--primary }
